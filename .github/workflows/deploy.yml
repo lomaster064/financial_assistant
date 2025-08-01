@@ -1,0 +1,26 @@
+name: Deploy to server
+
+on:
+  push:
+    branches: [ main ]  # запускать при пуше в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2  # скачиваем репозиторий
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}  # используем приватный ключ из секретов репозитория
+
+      - name: Deploy via SSH and Docker Compose
+        run: |
+          ssh -o StrictHostKeyChecking=no devops@192.168.1.87 "
+            cd /home/devops/financial_assistant &&
+            git pull &&  # подтягиваем свежий код
+            docker compose down &&  # останавливаем контейнеры
+            docker compose up -d --build  # пересобираем и запускаем контейнеры
+          "
