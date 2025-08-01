@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  financial_assistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: financial_assistant
+    container_name: financial_assistant
+    volumes:
+      - ./finance.db:/app/finance.db
+    restart: unless-stopped

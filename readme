@@ -1,0 +1,14 @@
+# Установка проекта
+
+1. Зайдите в папку проекта
+
+2. Запустите команду в терминале 
+
+docker-compose up -d
+
+3. Если что-то пошло не так, то 
+docker-compose up -d --build
+
+4. Если все равно не поднялся, то вручную поднимаем образ и контейнер
+docker build -t financial_assistant .
+потом docker run --name financial_assistant -d
