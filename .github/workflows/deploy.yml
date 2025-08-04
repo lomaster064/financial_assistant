@@ -18,7 +18,7 @@ jobs:
 
       - name: Deploy via SSH and Docker Compose
         run: |
-          ssh -o StrictHostKeyChecking=no devops@192.168.1.87 "
+          ssh -p 22022 -o StrictHostKeyChecking=no devops@95.31.204.225 "
             cd /home/devops/financial_assistant &&
             git pull &&  # подтягиваем свежий код
             docker compose down &&  # останавливаем контейнеры
